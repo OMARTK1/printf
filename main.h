@@ -18,8 +18,8 @@
 #define F_SPACE 16
 
 /* SIZES */
-#define S_LONG 2
-#define S_SHORT 1
+#define S_LONG 1
+#define S_SHORT 2
 
 /*Printing funcions*/
 int _printf(const char *format, ...);
@@ -31,7 +31,6 @@ int handle_char(va_list args);
 int handle_string(va_list args);
 int handle_percent(void);
 int handle_decimal(va_list args);
-
 /**
  * struct fmt - struct op
  *
@@ -43,8 +42,6 @@ struct fmt
 	char fmt;
 	int (*fn)(va_list, char[], int, int, int, int);
 };
-
-
 /**
  * typedef struct fmt fmt_t - Struct op
  *
@@ -75,6 +72,8 @@ int print_binary(va_list types, char buffer[],
 int print_unsigned(va_list types, char buffer[],
 		int flags, int width, int precision, int size);
 int print_octal(va_list types, char buffer[],
+		int flags, int width, int precision, int size);
+int print_decimal(va_list types, char buffer[], 
 		int flags, int width, int precision, int size);
 int print_hexadecimal(va_list types, char buffer[],
 		int flags, int width, int precision, int size);
