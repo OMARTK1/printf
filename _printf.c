@@ -1,68 +1,42 @@
-#include "main.h"
+#include <stdarg.h>
 #include <unistd.h>
+#include "main.h"
 
 /**
- * write_char - writes a character to stdout
- * @c: character to write
- *
- * Return: 1 on success, -1 on failure
-*/
-int write_char(char c)
-{
-	return (write(1, &c, 1));
-}
-
-/**
- * write_str - writes a string to stdout
- * @str: string to write
- *
- * Return: number of characters written
-*/
-int write_str(char *str)
-{
-	int len = 0;
-
-	if (str)
-	{
-		while (str[len])
-			len += write_char(str[len]);
-	}
-
-	return (len);
-}
-
-/**
- * _printf - printf function, function generates output
- *			based on a specified format
+ * _printf - printf function
  * @format: format string
+ * @...: additional arguments
  *
  * Return: number of characters printed
-*/
+ */
 int _printf(const char *format, ...)
 {
 	va_list args;
-	int i = 0, printed_chars = 0;
+	int printed_chars = 0;
+	unsigned int i = 0;
 
 	va_start(args, format);
 
 	while (format && format[i])
 	{
-		if (format[i] == '%')
+		if (format[i] != '%')
 		{
-			i++;
-			if (format[i] == '\0')
-				break;
-			if (format[i] == '%')
-				printed_chars += write_char('%');
-			else if (format[i] == 'c')
-				printed_chars += print_char(va_arg(args, int));
-			else if (format[i] == 's')
-				printed_chars += print_string(va_arg(args, char *));
-			else
-				printed_chars += write_char('%') + write_char(format[i]);
+			_putchar(format[i]);
+			printed_chars++;
 		}
 		else
-			printed_chars += write_char(format[i]);
+		{
+			i++;
+
+			if (format[i] == 'c')
+				printed_chars += handle_char(args);
+			else if (format[i] == 's')
+				printed_chars += handle_string(args);
+			else if (format[i] == '%')
+				printed_chars += handle_percent();
+			else if (format[i] == 'd' || format[i] == 'i')
+				printed_chars += handle_decimal(args);
+		}
 		i++;
 	}
 

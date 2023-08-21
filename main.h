@@ -3,12 +3,21 @@
 
 #include <stdarg.h>
 #include <unistd.h>
+#include <limits.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <unistd.h>
+#include <stddef.h>
 
+/*Printing funcions*/
 int _printf(const char *format, ...);
-int print_char(char c);
-int print_string(char *str);
-int print_percent(void);
-int write_char(char c);
-int write_str(char *str);
+int _putchar(char c);
+int _print_number(int n);
+
+/*Handler functions*/
+int handle_char(va_list args);
+int handle_string(va_list args);
+int handle_percent(void);
+int handle_decimal(va_list args);
 
 #endif
