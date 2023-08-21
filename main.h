@@ -6,8 +6,6 @@
 #include <limits.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include <unistd.h>
-#include <stddef.h>
 
 /*Printing funcions*/
 int _printf(const char *format, ...);
