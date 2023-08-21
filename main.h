@@ -22,12 +22,12 @@
 #define S_LONG 1
 #define S_SHORT 2
 
-/*Printing funcions*/
+/* Printing funcions */
 int _printf(const char *format, ...);
 int _putchar(char c);
 int _print_number(int n);
 
-/*Handler functions*/
+/* Handler functions */
 int handle_char(va_list args);
 int handle_string(va_list args);
 int handle_percent(void);
@@ -37,7 +37,7 @@ int handle_decimal(va_list args);
  *
  * @fmt: the format
  * @fn: the function associated
-*/
+ */
 struct fmt
 {
 	char fmt;
@@ -48,16 +48,16 @@ struct fmt
  *
  * @fmt: the format
  * @fm_t: the function associated
-*/
+ */
 typedef struct fmt fmt_t;
 
 int _printf(const char *format, ...);
 int handle_print(const char *fmt, int *i,
 		va_list list, char buffer[], int flags, int width, int precision, int size);
 
-/****************** FUNCTIONS ******************/
+/* FUNCTIONS */
 
-/* Funtions to print chars and strings */
+/*Funtions to print chars and strings*/
 int print_char(va_list types, char buffer[],
 		int flags, int width, int precision, int size);
 int print_string(va_list types, char buffer[],
@@ -65,7 +65,7 @@ int print_string(va_list types, char buffer[],
 int print_percent(va_list types, char buffer[],
 		int flags, int width, int precision, int size);
 
-/* Functions to print numbers */
+/*Functions to print numbers*/
 int print_int(va_list types, char buffer[],
 		int flags, int width, int precision, int size);
 int print_binary(va_list types, char buffer[],
@@ -74,7 +74,7 @@ int print_unsigned(va_list types, char buffer[],
 		int flags, int width, int precision, int size);
 int print_octal(va_list types, char buffer[],
 		int flags, int width, int precision, int size);
-int print_decimal(va_list types, char buffer[], 
+int print_decimal(va_list types, char buffer[],
 		int flags, int width, int precision, int size);
 int print_hexadecimal(va_list types, char buffer[],
 		int flags, int width, int precision, int size);
@@ -84,15 +84,15 @@ int print_hexa_upper(va_list types, char buffer[],
 int print_hexa(va_list types, char map_to[],
 		char buffer[], int flags, char flag_ch, int width, int precision, int size);
 
-/* Function to print non printable characters */
+/*Function to print non printable characters*/
 int print_non_printable(va_list types, char buffer[],
 		int flags, int width, int precision, int size);
 
-/* Funcion to print memory address */
+/*Funcion to print memory address*/
 int print_pointer(va_list types, char buffer[],
 		int flags, int width, int precision, int size);
 
-/* Funciotns to handle other specifiers */
+/*Funciotns to handle other specifiers*/
 int get_flags(const char *format, int *i);
 int get_width(const char *format, int *i, va_list list);
 int get_precision(const char *format, int *i, va_list list);
@@ -120,10 +120,41 @@ int write_unsgnd(int is_negative, int ind,
 		char buffer[],
 		int flags, int width, int precision, int size);
 
-/****************** UTILS ******************/
+/* UTILS */
 int is_printable(char);
 int append_hexa_code(char, char[], int);
 int is_digit(char);
+
+/* Function prototypes */
+int _printf(const char *format, ...);
+
+/**
+ * is_valid_specifier - check if a specifier character is valid
+ * @specifier: specifier character to be checked
+ *
+ * Returns: 1 if the specifier is valid, 0 otherwise
+ */
+int is_valid_specifier(char specifier);
+
+/**
+ * write_to_stdout - write a string to the standard output (stdout)
+ * @str: the string to be written
+ */
+void write_to_stdout(const char *str);
+
+/**
+ * append_string - append a string to a buffer
+ * @buffer: pointer to the buffer where the string will be appended
+ * @str: string to be appended
+ */
+void append_string(char **buffer, const char *str);
+
+/**
+ * append_specific_char - append a specific character to a buffer
+ * @buffer: pointer to the buffer where the character will be appended
+ * @c: character to be appended
+ */
+void append_specific_char(char **buffer, char c);
 
 long int convert_size_number(long int num, int size);
 long int convert_size_unsgnd(unsigned long int num, int size);
