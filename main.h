@@ -147,9 +147,9 @@ void write_to_stdout(const char *str);
 void append_string(char **buffer, const char *str, int *output_len)
 
 /**
- * append_specific_char - Append a specific character to a buffer.
- * @buffer: Pointer to the buffer.
- * @c: Character to append.
+ * append_specific_char - Append a specific character to a buffer
+ * @buffer: Pointer to the buffer
+ * @c: Character to append
 */
 void append_specific_char(char **buffer, char c);
 
@@ -161,7 +161,8 @@ void append_string(char **buffer, const char *str, int *output_len);
 void _process_format(const char *format, int *printed_chars, va_list args);
 char *process_specifier(char specifier, va_list args);
 void _handle_invalid_specifier(char specifier, int *printed_chars);
-char *process_format_specifier(const char **ptr, va_list args, int *printed_chars);
+char *process_format_specifier(const char **ptr,
+		va_list args, int *printed_chars);
 
 /* Function prototypes */
 int _printf(const char *format, ...);
