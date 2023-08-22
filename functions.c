@@ -10,7 +10,10 @@
 void write_to_stdout(const char *str)
 {
 	if (str)
+	{
 		fputs(str, stdout);
+		fflush(stdout); /* Flush the buffer to ensure immediate printing */
+	}
 }
 
 /**
