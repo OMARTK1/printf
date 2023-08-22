@@ -125,14 +125,10 @@ int is_printable(char);
 int append_hexa_code(char, char[], int);
 int is_digit(char);
 
-/* Function prototypes */
-int _printf(const char *format, ...);
-
 /**
  * is_valid_specifier - check if a specifier character is valid
  * @specifier: specifier character to be checked
- *
- * Returns: 1 if the specifier is valid, 0 otherwise
+ * Return: 1 if the specifier is valid, 0 otherwise
  */
 int is_valid_specifier(char specifier);
 
@@ -146,17 +142,21 @@ void write_to_stdout(const char *str);
  * append_string - append a string to a buffer
  * @buffer: pointer to the buffer where the string will be appended
  * @str: string to be appended
+ * @output_len: the output to be print
  */
-void append_string(char **buffer, const char *str);
+void append_string(char **buffer, const char *str, int *output_len)
 
 /**
- * append_specific_char - append a specific character to a buffer
- * @buffer: pointer to the buffer where the character will be appended
- * @c: character to be appended
- */
+ * append_specific_char - Append a specific character to a buffer.
+ * @buffer: Pointer to the buffer.
+ * @c: Character to append.
+*/
 void append_specific_char(char **buffer, char c);
 
 long int convert_size_number(long int num, int size);
 long int convert_size_unsgnd(unsigned long int num, int size);
+
+/* Function prototypes */
+int _printf(const char *format, ...);
 
 #endif
