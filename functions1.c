@@ -4,17 +4,19 @@
 #include <string.h>
 
 /**
- * _itoa - Converts an integer to a string.
+ * my_itoa - Converts an integer to a string.
  * @num: The integer to be converted.
  * @str: Pointer to the buffer to store the converted string.
  * @base: The base for conversion (e.g., 10 for decimal).
  * 
  * Return: The length of the converted string.
  */
-int itoa(int num, char *str, int base)
+int my_itoa(int num, char *str, int base) /* change the name to my_itoa */
 {
 	int i = 0;
 	int is_negative = 0;
+	int len; /* declare len here */
+	int j; /* declare j here */
 
 	if (num == 0)
 	{
@@ -44,9 +46,9 @@ int itoa(int num, char *str, int base)
 	str[i] = '\0';
 
 	/* Reverse the string */
-	int len = i;
-	int j;
-	for (int j = 0; j < len / 2; ++j)
+	len = i; /* assign len here */
+
+	for (j = 0; j < len / 2; ++j) /* use j without declaring it here */
 	{
 		char temp = str[j];
 		str[j] = str[len - j - 1];
@@ -54,15 +56,6 @@ int itoa(int num, char *str, int base)
 	}
 
 	return len;
-}
-
-/**
- * _putchar - Writes a character to the standard output (stdout).
- * @c: The character to be written.
- */
-void _putchar(char c)
-{
-	putchar(c);
 }
 
 /**
@@ -79,4 +72,16 @@ size_t _strlen(const char *str)
 		++len;
 	}
 	return len;
+}
+
+/**
+ * _putchar - writes the character c to stdout
+ * @c: The character to print
+ *
+ * Return: On success 1.
+ * On error, -1 is returned, and errno is set appropriately.
+ */
+int _putchar(char c)
+{
+	return (write(1, &c, 1));
 }

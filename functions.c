@@ -26,7 +26,8 @@ int is_valid_specifier(char specifier)
 	const char valid_specifiers[] = {'c', 's', '%', 'd', 'i', 'b', 'u', 'o', 'x', 'X', 'p', 'r', 'R'};
 
 	/* Check if the specifier character is in the valid_specifiers array */
-	for (int i = 0; i < sizeof(valid_specifiers) / sizeof(valid_specifiers[0]); ++i)
+	for (i = 0; i < (int)(sizeof(valid_specifiers) / sizeof(valid_specifiers[0])); ++i) /* cast to signed type */
+
 	{
 		if (specifier == valid_specifiers[i])
 		{
@@ -66,7 +67,7 @@ void append_specific_char(char **buffer, char c)
  * @specifier: The invalid specifier character.
  * @printed_chars: Pointer to the count of printed characters.
  */
-void _handle_invalid_specifier(char specifier, int *printed_chars)
+void _handle_invalid_specifier(char specifier __attribute__((unused)), int *printed_chars)
 {
 	/* Handle invalid specifier, e.g., print a '?' character */
 	_putchar('?');
