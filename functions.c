@@ -1,91 +1,74 @@
 #include "main.h"
-#include <stdarg.h>
-#include <unistd.h>
-/**
- * _putchar - writes a character to the standard output
- * @c: the character to be written
- *
- * Return: on success, 1 is returned. On error, -1 is returned,
- * and errno is set appropriately.
- */
-int _putchar(char c)
-{
-	return (write(1, &c, 1));
-}
+#include <string.h>
 
 /**
- * _print_number - prints an integer using recursion
- * @n: the integer to be printed
- *
- * Return: the number of characters printed
+ * write_to_stdout - Writes a string to the standard output (stdout).
+ * @str: The string to be written.
  */
-int _print_number(int n)
+void write_to_stdout(const char *str)
 {
-	int len = 0;
-
-	if (n / 10 != 0)
-		len += _print_number(n / 10);
-	len += _putchar((n % 10) + '0');
-
-	return (len);
-}
-
-/**
- * handle_char - handles the %c conversion specifier
- * @args: va_list containing the argument
- *
- * Return: number of characters printed
- */
-int handle_char(va_list args)
-{
-	char c = va_arg(args, int);
-
-	_putchar(c);
-	return (1); /*Return the number of characters printed*/
-}
-
-/**
- * handle_string - handles the %s conversion specifier
- * @args: va_list containing the argument
- *
- * Return: number of characters printed
- */
-int handle_string(va_list args)
-{
-	char *str = va_arg(args, char *);
-	int printed_chars = 0;
-
-	if (str)
+	if (str != NULL)
 	{
-		while (*str)
+		fputs(str, stdout);
+	}
+}
+
+/**
+ * is_valid_specifier - Checks if a specifier character is valid.
+ * @specifier: The specifier character to validate.
+ * 
+ * Return: 1 if the specifier is valid, 0 otherwise.
+ */
+int is_valid_specifier(char specifier)
+{
+	int i;
+	/* List of valid specifier characters */
+	const char valid_specifiers[] = {'c', 's', '%', 'd', 'i', 'b', 'u', 'o', 'x', 'X', 'p', 'r', 'R'};
+
+	/* Check if the specifier character is in the valid_specifiers array */
+	for (int i = 0; i < sizeof(valid_specifiers) / sizeof(valid_specifiers[0]); ++i)
+	{
+		if (specifier == valid_specifiers[i])
 		{
-			_putchar(*str);
-			str++;
-			printed_chars++;
+			return 1; /* Specifier is valid */
 		}
 	}
 
-	return (printed_chars);
+	return 0; /* Specifier is not valid */
 }
 
 /**
- * handle_decimal - handles the %d and %i conversion specifiers
- * @args: va_list containing the argument
- *
- * Return: number of characters printed
+ * append_specific_char - Appends a specific character to the buffer.
+ * @buffer: Pointer to the buffer.
+ * @c: Character to append.
+ * 
+ * Description: Appends a character to the buffer, reallocating memory if needed.
  */
-int handle_decimal(va_list args)
+void append_specific_char(char **buffer, char c)
 {
-	int num = va_arg(args, int);
-	int len = 0;
-
-	if (num < 0)
+	if (*buffer == NULL)
 	{
-		_putchar('-');
-		num = -num;
-		len++;
+		*buffer = (char *)malloc(2 * sizeof(char));
+		(*buffer)[0] = c;
+		(*buffer)[1] = '\0';
 	}
+	else
+	{
+		size_t current_length = strlen(*buffer);
+		*buffer = (char *)realloc(*buffer, (current_length + 2) * sizeof(char));
+		(*buffer)[current_length] = c;
+		(*buffer)[current_length + 1] = '\0';
+	}
+}
 
-	len += _print_number(num);
-	return (len);
+/**
+ * _handle_invalid_specifier - Handles an invalid format specifier.
+ * @specifier: The invalid specifier character.
+ * @printed_chars: Pointer to the count of printed characters.
+ */
+void _handle_invalid_specifier(char specifier, int *printed_chars)
+{
+	/* Handle invalid specifier, e.g., print a '?' character */
+	_putchar('?');
+	++(*printed_chars);
 }
