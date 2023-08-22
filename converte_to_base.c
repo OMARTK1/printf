@@ -2,11 +2,11 @@
 #include <stdlib.h>
 
 /**
- * convert_to_base - Converts a number to a string in the given base.
- * @num: The number to be converted.
- * @base: The base for conversion (e.g., 2, 8, 10, 16).
- * Return: Dynamically allocated string containing the converted number.
- *         The caller is responsible for freeing the memory.
+ * convert_to_base - converts a number to a string in the given base
+ * @num: number to be converted
+ * @base: base for conversion (e.g., 2, 8, 10, 16)
+ * Return: dynamically allocated string containing the converted number.
+ *         the caller is responsible for freeing the memory.
  */
 char *convert_to_base(unsigned int num, int base)
 {

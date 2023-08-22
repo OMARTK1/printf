@@ -82,10 +82,9 @@ int _printf(const char *format, ...)
  */
 char *process_specifier(char specifier, va_list args)
 {
-	/*char *formatted_output; */
-	char *s; /* For strings */
-	int n; /* For integers */
-	char num_str[12]; /* For integer strings */
+	char *s;
+	int n;
+	char num_str[12];
 
 	switch (specifier)
 	{
