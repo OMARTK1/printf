@@ -10,7 +10,6 @@ void append_specific_char(char **buffer, char c, int *output_len);
  * @buffer: pointer to the buffer
  * @str: string to append
  * @output_len: pointer to the length of the output buffer
- *
  * Description: appends the input string to the buffer,
  *              reallocating memory if needed
  */
