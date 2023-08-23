@@ -1,7 +1,7 @@
 #include "main.h"
-#include <string.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 /**
  * write_to_stdout - writes a string to stdout
