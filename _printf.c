@@ -2,10 +2,35 @@
 #include <stdarg.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include <unistd.h>
 
 void append_specific_char(char **buffer, char c, int *output_len);
-char *process_specifier(char specifier, va_list args);
+
+/**
+ * append_string - appends a string to the buffer and updates output length
+ * @buffer: pointer to the buffer
+ * @str: string to append
+ * @output_len: pointer to the length of the output buffer
+ * Description: appends the input string to the buffer,
+ *              reallocating memory if needed
+ */
+void append_string(char **buffer, const char *str, int *output_len)
+{
+	if (*buffer == NULL)
+	{
+		*buffer = malloc((strlen(str) + 1) * sizeof(char));
+		strcpy(*buffer, str);
+		*output_len = strlen(str);
+	}
+	else
+	{
+		int str_len = strlen(str);
+
+		*buffer = realloc(*buffer, (*output_len + str_len + 1) * sizeof(char));
+		strcpy(*buffer + *output_len, str);
+		*output_len += str_len;
+	}
+}
+
 /**
  * _printf - printf function that produces output according to a format
  * @format: string containing the format specifiers
@@ -31,7 +56,8 @@ int _printf(const char *format, ...)
 			formatted_output = process_specifier(*format, args);
 			if (formatted_output == NULL)
 				return (-1);
-			printed_chars += write(1, formatted_output, strlen(formatted_output));
+			printed_chars += write(1, formatted_output,
+					strlen(formatted_output));
 			free(formatted_output);
 		}
 		else
@@ -42,33 +68,9 @@ int _printf(const char *format, ...)
 		format++;
 	}
 	va_end(args);
-	return (printed_chars);
+	return (printed_chars); /* Return the number of printed characters */
 }
-/**
- * append_string - appends a string to the buffer & updates output length
- * @buffer: pointer to the buffer
- * @str: string to append
- * @output_len: pointer to the length of the output buffer
- * Description: appends the input string to the buffer,
- *              reallocating memory if needed
- */
-void append_string(char **buffer, const char *str, int *output_len)
-{
-	if (*buffer == NULL)
-	{
-		*buffer = malloc((strlen(str) + 1) * sizeof(char));
-		strcpy(*buffer, str);
-		*output_len = strlen(str);
-	}
-	else
-	{
-		int str_len = strlen(str);
 
-		*buffer = realloc(*buffer, (*output_len + str_len + 1) * sizeof(char));
-		strcpy(*buffer + *output_len, str);
-		*output_len += str_len;
-	}
-}
 /**
  * process_specifier - handles the processing of valid format specifiers
  * @specifier: the format specifier character
@@ -129,4 +131,3 @@ char *process_specifier(char specifier, va_list args)
 			return (NULL);
 	}
 }
-
