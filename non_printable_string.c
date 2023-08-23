@@ -24,6 +24,7 @@ char *format_non_printable_string(const char *str)
 		if (!is_printable(str[i]))
 		{
 			char hex[6];
+
 			snprintf(hex, sizeof(hex), "\\x%02X", (unsigned char)str[i]);
 			append_string(&formatted_output, hex, &output_len);
 		}
@@ -33,5 +34,5 @@ char *format_non_printable_string(const char *str)
 		}
 	}
 
-	return formatted_output;
+	return (formatted_output);
 }
